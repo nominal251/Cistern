@@ -11,12 +11,24 @@ public class ShipController : MonoBehaviour
 
     public float torqueForce = 5f;
 
+    public float maxBoost = 5f;
+    public float drainRate = 1f;
+    public float rechargeRate = 1f;
+    public float boostDelay = 1f;
+
+    private float boost;
+    private float counter;
+
+    public float boostPercent;
+
     private Rigidbody2D rb;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        boost = maxBoost;
     }
 
     void FixedUpdate()
@@ -30,9 +42,11 @@ public class ShipController : MonoBehaviour
             turnInput += 1f;
 
         //accelerate, check for boost
-        if (Keyboard.current.leftShiftKey.isPressed && Keyboard.current.wKey.isPressed)
+        if (Keyboard.current.leftShiftKey.isPressed && Keyboard.current.wKey.isPressed && boost > 0)
         {
             rb.AddForce(transform.up * boostForce, ForceMode2D.Force);
+            boost -= drainRate * Time.fixedDeltaTime;
+            counter = 0; //reset recharge counter
         }
         else if (Keyboard.current.wKey.isPressed)
         {
@@ -42,6 +56,8 @@ public class ShipController : MonoBehaviour
         {
             rb.AddForce(-transform.up * thrustForce, ForceMode2D.Force);
         }
+
+        Recharge();
 
         //rotate
         rb.AddTorque(torqueForce * turnInput, ForceMode2D.Force);
@@ -55,6 +71,24 @@ public class ShipController : MonoBehaviour
         if (Keyboard.current.qKey.isPressed)
         {
             rb.AddForce(transform.right * thrustForce, ForceMode2D.Force);
+        }
+
+        boostPercent = boost / maxBoost;
+    }
+
+    void Recharge()
+    {
+        if (boost >= maxBoost)
+        {
+            boost = maxBoost;
+            return;
+        }
+
+        counter += Time.fixedDeltaTime;
+
+        if (counter >= boostDelay)
+        {
+            boost += rechargeRate * Time.fixedDeltaTime;
         }
     }
 }
