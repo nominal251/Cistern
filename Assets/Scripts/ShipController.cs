@@ -5,7 +5,11 @@ public class ShipController : MonoBehaviour
 {
 
     public float thrustForce = 15f;
-    public float turnSpeed = 180f;
+    public float strafeForce = 10.0f;
+
+    public float boostForce = 30f;
+
+    public float torqueForce = 5f;
 
     private Rigidbody2D rb;
 
@@ -13,8 +17,6 @@ public class ShipController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
-        rb.freezeRotation = true;
     }
 
     void FixedUpdate()
@@ -27,14 +29,32 @@ public class ShipController : MonoBehaviour
         if (Keyboard.current.dKey.isPressed)
             turnInput += 1f;
 
-        if (Keyboard.current.wKey.isPressed)
+        //accelerate, check for boost
+        if (Keyboard.current.leftShiftKey.isPressed && Keyboard.current.wKey.isPressed)
+        {
+            rb.AddForce(transform.up * boostForce, ForceMode2D.Force);
+        }
+        else if (Keyboard.current.wKey.isPressed)
         {
             rb.AddForce(transform.up * thrustForce, ForceMode2D.Force);
         }
-
-        if (turnInput != 0f)
+        else if (Keyboard.current.sKey.isPressed)
         {
-            rb.MoveRotation(rb.rotation + turnSpeed * turnInput * Time.fixedDeltaTime);
+            rb.AddForce(-transform.up * thrustForce, ForceMode2D.Force);
+        }
+
+        //rotate
+        rb.AddTorque(torqueForce * turnInput, ForceMode2D.Force);
+
+        //strafe
+        if (Keyboard.current.eKey.isPressed)
+        {
+            rb.AddForce(-transform.right * thrustForce, ForceMode2D.Force);
+        }
+
+        if (Keyboard.current.qKey.isPressed)
+        {
+            rb.AddForce(transform.right * thrustForce, ForceMode2D.Force);
         }
     }
 }
