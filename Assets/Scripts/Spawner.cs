@@ -39,7 +39,7 @@ public class Spawner : MonoBehaviour
                 spawnPos.x = Mathf.Clamp(spawnPos.x, -40f, 40f);
                 spawnPos.y = Mathf.Clamp(spawnPos.y, -40f, 40f);
 
-                Instantiate(prefab, spawnPos, Quaternion.identity);
+                Instantiate(prefab, new Vector3(spawnPos.x, spawnPos.y, -34f), Quaternion.identity);
             }
 
             groupSize = Random.Range(groupSizeMin, groupSizeMax);

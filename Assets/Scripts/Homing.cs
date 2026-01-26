@@ -4,6 +4,7 @@ public class Homing : MonoBehaviour
 {
     Transform target;
     GameObject player;
+    public GameObject particle;
 
     public float force = 15f;
     public float randomness = 0.2f;
@@ -34,6 +35,7 @@ public class Homing : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("bullet"))
         {
+            Instantiate(particle, transform.position, Quaternion.identity);
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
