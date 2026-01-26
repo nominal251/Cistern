@@ -6,6 +6,7 @@ public class Homing : MonoBehaviour
     GameObject player;
 
     public float force = 15f;
+    public float randomness = 0.2f;
 
     private Rigidbody2D rb;
 
@@ -22,6 +23,9 @@ public class Homing : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 direction = ((Vector2)target.position - rb.position).normalized;
+
+        direction += Random.insideUnitCircle * randomness;
+        direction.Normalize();
 
         rb.AddForce(direction * force, ForceMode2D.Force);
     }
