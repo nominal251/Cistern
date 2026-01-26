@@ -1,0 +1,37 @@
+using UnityEngine;
+
+public class Homing : MonoBehaviour
+{
+    Transform target;
+    GameObject player;
+
+    public float force = 15f;
+
+    private Rigidbody2D rb;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        target = player.transform;
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        Vector2 direction = ((Vector2)target.position - rb.position).normalized;
+
+        rb.AddForce(direction * force, ForceMode2D.Force);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("bullet"))
+        {
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+    }
+}
