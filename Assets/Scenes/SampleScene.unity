@@ -1182,6 +1182,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4227018331078465068, guid: ed161d3dfeff6ba4d9128ffb3cf1b676, type: 3}
+      propertyPath: particle
+      value: 
+      objectReference: {fileID: 2710712819079490825, guid: 2ad8b2256a323e24eae0d1fe9d61a01b, type: 3}
+    - target: {fileID: 4227018331078465068, guid: ed161d3dfeff6ba4d9128ffb3cf1b676, type: 3}
       propertyPath: gameOverManager
       value: 
       objectReference: {fileID: 879227012}
@@ -8505,6 +8509,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4227018331078465068, guid: ed161d3dfeff6ba4d9128ffb3cf1b676, type: 3}
+      propertyPath: particle
+      value: 
+      objectReference: {fileID: 2710712819079490825, guid: 2ad8b2256a323e24eae0d1fe9d61a01b, type: 3}
     - target: {fileID: 4227018331078465068, guid: ed161d3dfeff6ba4d9128ffb3cf1b676, type: 3}
       propertyPath: gameOverManager
       value: 
@@ -17599,6 +17607,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4227018331078465068, guid: ed161d3dfeff6ba4d9128ffb3cf1b676, type: 3}
+      propertyPath: particle
+      value: 
+      objectReference: {fileID: 2710712819079490825, guid: 2ad8b2256a323e24eae0d1fe9d61a01b, type: 3}
     - target: {fileID: 4227018331078465068, guid: ed161d3dfeff6ba4d9128ffb3cf1b676, type: 3}
       propertyPath: gameOverManager
       value: 
@@ -34376,6 +34388,7 @@ GameObject:
   - component: {fileID: 1219142558}
   - component: {fileID: 1219142559}
   - component: {fileID: 1219142560}
+  - component: {fileID: 1219142561}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -34395,9 +34408,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43518f11058dbe3418458e83d14313cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShipController
-  thrustForce: 10
+  thrustForce: 15
   strafeForce: 6
-  boostForce: 25
+  boostForce: 35
   torqueForce: 1.5
   maxBoost: 2
   drainRate: 1
@@ -34538,7 +34551,7 @@ MonoBehaviour:
   intervalMax: 12
   radius: 30
   groupSizeMin: 0
-  groupSizeMax: 3
+  groupSizeMax: 5
 --- !u!114 &1219142560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34552,6 +34565,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCollision
   gameOverManager: {fileID: 879227012}
+--- !u!114 &1219142561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219142552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3076aa18f2c028e4e81c041d41cf3d7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExitOnEsc
 --- !u!1 &1220100281
 GameObject:
   m_ObjectHideFlags: 0
@@ -34742,6 +34767,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4227018331078465068, guid: ed161d3dfeff6ba4d9128ffb3cf1b676, type: 3}
+      propertyPath: particle
+      value: 
+      objectReference: {fileID: 2710712819079490825, guid: 2ad8b2256a323e24eae0d1fe9d61a01b, type: 3}
     - target: {fileID: 4227018331078465068, guid: ed161d3dfeff6ba4d9128ffb3cf1b676, type: 3}
       propertyPath: gameOverManager
       value: 
@@ -38452,6 +38481,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4227018331078465068, guid: ed161d3dfeff6ba4d9128ffb3cf1b676, type: 3}
+      propertyPath: particle
+      value: 
+      objectReference: {fileID: 2710712819079490825, guid: 2ad8b2256a323e24eae0d1fe9d61a01b, type: 3}
     - target: {fileID: 4227018331078465068, guid: ed161d3dfeff6ba4d9128ffb3cf1b676, type: 3}
       propertyPath: gameOverManager
       value: 
@@ -49983,6 +50016,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4227018331078465068, guid: ed161d3dfeff6ba4d9128ffb3cf1b676, type: 3}
+      propertyPath: particle
+      value: 
+      objectReference: {fileID: 2710712819079490825, guid: 2ad8b2256a323e24eae0d1fe9d61a01b, type: 3}
+    - target: {fileID: 4227018331078465068, guid: ed161d3dfeff6ba4d9128ffb3cf1b676, type: 3}
       propertyPath: gameOverManager
       value: 
       objectReference: {fileID: 879227012}
@@ -50324,6 +50361,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4227018331078465068, guid: ed161d3dfeff6ba4d9128ffb3cf1b676, type: 3}
+      propertyPath: particle
+      value: 
+      objectReference: {fileID: 2710712819079490825, guid: 2ad8b2256a323e24eae0d1fe9d61a01b, type: 3}
     - target: {fileID: 4227018331078465068, guid: ed161d3dfeff6ba4d9128ffb3cf1b676, type: 3}
       propertyPath: gameOverManager
       value: 
@@ -53340,6 +53381,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4227018331078465068, guid: ed161d3dfeff6ba4d9128ffb3cf1b676, type: 3}
+      propertyPath: particle
+      value: 
+      objectReference: {fileID: 2710712819079490825, guid: 2ad8b2256a323e24eae0d1fe9d61a01b, type: 3}
     - target: {fileID: 4227018331078465068, guid: ed161d3dfeff6ba4d9128ffb3cf1b676, type: 3}
       propertyPath: gameOverManager
       value: 
@@ -57102,6 +57147,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4227018331078465068, guid: ed161d3dfeff6ba4d9128ffb3cf1b676, type: 3}
+      propertyPath: particle
+      value: 
+      objectReference: {fileID: 2710712819079490825, guid: 2ad8b2256a323e24eae0d1fe9d61a01b, type: 3}
     - target: {fileID: 4227018331078465068, guid: ed161d3dfeff6ba4d9128ffb3cf1b676, type: 3}
       propertyPath: gameOverManager
       value: 

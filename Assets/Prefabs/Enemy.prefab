@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Homing
   particle: {fileID: 2710712819079490825, guid: b3b51db34f318944b9af086e45e2aec4, type: 3}
-  force: 70
+  force: 80
   randomness: 3
 --- !u!50 &3822631818990057739
 Rigidbody2D:
