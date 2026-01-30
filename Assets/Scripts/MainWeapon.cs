@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class MainWeapon : MonoBehaviour
 {
+    InputAction fireAction;
+
     public Transform origin;
     public GameObject projectile;
 
@@ -27,6 +29,9 @@ public class MainWeapon : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        fireAction = InputSystem.actions.FindAction("Attack");
+        fireAction.Enable();
+
         ammo = ammoCapacity;
         shooterRb = GetComponent<Rigidbody2D>();
     }
@@ -35,7 +40,7 @@ public class MainWeapon : MonoBehaviour
     void Update()
     {
         // fire weapon
-        if (Keyboard.current.leftArrowKey.isPressed && counter >= delay && ammo > 0)
+        if (fireAction.IsPressed() && counter >= delay && ammo > 0)
         {
             counter = 0;
 

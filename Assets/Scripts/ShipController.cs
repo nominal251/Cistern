@@ -3,13 +3,14 @@ using UnityEngine.InputSystem;
 
 public class ShipController : MonoBehaviour
 {
+    public Transform reticle;
 
     public float thrustForce = 15f;
     public float strafeForce = 10.0f;
 
     public float boostForce = 30f;
 
-    public float torqueForce = 5f;
+    public float aimTorque = 1f;
 
     public float maxBoost = 5f;
     public float drainRate = 1f;
@@ -20,6 +21,8 @@ public class ShipController : MonoBehaviour
     private float counter;
 
     public float boostPercent;
+
+    public float deadZone = 0.5f;
 
     private Rigidbody2D rb;
 
@@ -33,13 +36,7 @@ public class ShipController : MonoBehaviour
 
     void FixedUpdate()
     {
-        float turnInput = 0f;
-
-        if (Keyboard.current.aKey.isPressed)
-            turnInput -= 1f;
-
-        if (Keyboard.current.dKey.isPressed)
-            turnInput += 1f;
+        AimTowardReticle();
 
         //accelerate, check for boost
         if (Keyboard.current.leftShiftKey.isPressed && Keyboard.current.wKey.isPressed && boost > 0)
@@ -59,16 +56,13 @@ public class ShipController : MonoBehaviour
 
         Recharge();
 
-        //rotate
-        rb.AddTorque(torqueForce * turnInput, ForceMode2D.Force);
-
         //strafe
-        if (Keyboard.current.eKey.isPressed)
+        if (Keyboard.current.dKey.isPressed)
         {
             rb.AddForce(-transform.right * thrustForce, ForceMode2D.Force);
         }
 
-        if (Keyboard.current.qKey.isPressed)
+        if (Keyboard.current.aKey.isPressed)
         {
             rb.AddForce(transform.right * thrustForce, ForceMode2D.Force);
         }
@@ -90,5 +84,28 @@ public class ShipController : MonoBehaviour
         {
             boost += rechargeRate * Time.fixedDeltaTime;
         }
+    }
+
+    void AimTowardReticle()
+    {
+        Vector2 toReticle = (Vector2)(reticle.position - transform.position);
+
+        if (toReticle.sqrMagnitude < 0.0001f)
+            return;
+
+        float targetAngle = Mathf.Atan2(toReticle.y, toReticle.x) * Mathf.Rad2Deg - 90f;
+        float currentAngle = rb.rotation;
+
+        float angleError = Mathf.DeltaAngle(currentAngle, targetAngle);
+
+        if (Mathf.Abs(angleError) < deadZone)
+        {
+            rb.angularVelocity = 0f;
+            return;
+        }
+
+        float desiredAngularVelocity = angleError * aimTorque;
+
+        rb.angularVelocity = desiredAngularVelocity;
     }
 }
