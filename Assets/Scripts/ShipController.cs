@@ -1,10 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using System.Collections;
 
 public class ShipController : MonoBehaviour
 {
     public Transform reticle;
+    [SerializeField] private GameObject overheatIndicator;
 
+    [Header("Mobility Parameters")]
     public float thrustForce = 15f;
     public float strafeForce = 10.0f;
 
@@ -12,6 +16,7 @@ public class ShipController : MonoBehaviour
 
     public float aimTorque = 1f;
 
+    [Header("Boost Parameters")]
     public float maxBoost = 5f;
     public float drainRate = 1f;
     public float rechargeRate = 1f;
@@ -22,7 +27,22 @@ public class ShipController : MonoBehaviour
 
     public float boostPercent;
 
+    [Header("Dead Zone")]
     public float deadZone = 0.5f;
+
+    [Header("Heat Parameters")]
+    public Image heatbar;
+
+    public float heat = 0f;
+    public float maxHeat = 100f;
+    public float coolRate = 1f;
+    public float boostHeatRate = 1f;
+
+    public bool heatLocked = false;
+    public bool heatedThisFrame = false;
+    public bool overheated = false;
+
+    private float heatCounter;
 
     private Rigidbody2D rb;
 
@@ -30,20 +50,26 @@ public class ShipController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        overheatIndicator.SetActive(false);
 
         boost = maxBoost;
     }
 
     void FixedUpdate()
     {
+        heatedThisFrame = false;
+
         AimTowardReticle();
 
         //accelerate, check for boost
-        if (Keyboard.current.leftShiftKey.isPressed && Keyboard.current.wKey.isPressed && boost > 0)
+        if (Keyboard.current.leftShiftKey.isPressed && Keyboard.current.wKey.isPressed && boost > 0 && overheated == false)
         {
             rb.AddForce(transform.up * boostForce, ForceMode2D.Force);
             boost -= drainRate * Time.fixedDeltaTime;
             counter = 0; //reset recharge counter
+
+            heat += boostHeatRate * Time.fixedDeltaTime;
+            heatedThisFrame = true;
         }
         else if (Keyboard.current.wKey.isPressed)
         {
@@ -68,6 +94,8 @@ public class ShipController : MonoBehaviour
         }
 
         boostPercent = boost / maxBoost;
+
+        ManageHeat();
     }
 
     void Recharge()
@@ -107,5 +135,29 @@ public class ShipController : MonoBehaviour
         float desiredAngularVelocity = angleError * aimTorque;
 
         rb.angularVelocity = desiredAngularVelocity;
+    }
+        void ManageHeat()
+    {
+        if (heatedThisFrame == false && heat > 0 && heatLocked == false)
+        {
+            heat -= coolRate * Time.fixedDeltaTime;
+        }
+
+        if (heat >= 100)
+        {
+            StartCoroutine(Overheating());
+        }
+
+        heatbar.fillAmount = heat / maxHeat;
+    }
+
+    IEnumerator Overheating()
+    {
+        overheatIndicator.SetActive(true);
+        overheated = true;
+        heat = 100;
+        yield return new WaitForSeconds(5f);
+        overheated = false;
+        overheatIndicator.SetActive(false);
     }
 }
